@@ -2,65 +2,61 @@
 
 ## Índice
 
-- [Navegación básica en la terminal](#navegaci%C3%B3n-b%C3%A1sica-en-la-terminal)
-- [Manejo de archivos y carpetas](#manejo-de-archivos-y-carpetas)
-- [Inicializar un repositorio Git](#inicializar-un-repositorio-git)
-- [Flujo básico de trabajo con Git](#flujo-b%C3%A1sico-de-trabajo-con-git)
-- [Modificar y deshacer cambios](#modificar-y-deshacer-cambios)
-- [Volver a versiones anteriores](#volver-a-versiones-anteriores)
-- [Ramas y flujo de trabajo](#ramas-y-flujo-de-trabajo)
-- [Trabajo con repositorios remotos](#trabajo-con-repositorios-remotos)
-- [Resolución de conflictos](#resoluci%C3%B3n-de-conflictos)
-- [Configuración de llaves SSH](#configuraci%C3%B3n-de-llaves-ssh)
-- [Recursos útiles](#recursos-%C3%BAtiles)
+* [Terminal: navegación y manejo de archivos](#terminal-navegación-y-manejo-de-archivos)
+* [Configuración inicial de Git](#configuración-inicial-de-git)
+* [Flujo de trabajo básico](#flujo-de-trabajo-básico)
+* [Modificar y deshacer cambios](#modificar-y-deshacer-cambios)
+* [Volver a versiones anteriores](#volver-a-versiones-anteriores)
+* [Trabajo con ramas](#trabajo-con-ramas)
+* [Repositorios remotos](#repositorios-remotos)
+* [Resolución de conflictos](#resolución-de-conflictos)
+* [Llaves SSH](#llaves-ssh)
+* [Buenas prácticas](#buenas-prácticas)
+* [Commits convencionales](#commits-convencionales)
+* [Recursos útiles](#recursos-útiles)
 
 ---
 
-## Navegación básica en la terminal
+## Terminal: navegación y manejo de archivos
 
 ```bash
-pwd             # Ruta actual
-cd carpeta      # Entrar a una carpeta
-cd ..           # Subir un nivel
-cd ~            # Ir al home
-ls              # Ver archivos y carpetas
-ls -a           # Incluir ocultos
-clear           # Limpiar la pantalla
+pwd                  # Ruta actual
+cd carpeta           # Entrar a una carpeta
+cd ..                # Subir un nivel
+cd ~                 # Ir al home
+ls                   # Ver archivos y carpetas
+ls -a                # Incluir ocultos
+clear                # Limpiar pantalla
+
+mkdir nombre         # Crear carpeta
+touch archivo.txt    # Crear archivo vacío
+cat archivo.txt      # Ver contenido
+rm archivo.txt       # Borrar archivo
+rm -r carpeta/       # Borrar carpeta completa
+code .               # Abrir carpeta en VSCode
 ```
 
 ---
 
-## Manejo de archivos y carpetas
+## Configuración inicial de Git
 
 ```bash
-mkdir nombre             # Crear carpeta
-touch archivo.txt        # Crear archivo vacío
-cat archivo.txt          # Ver contenido
-rm archivo.txt           # Borrar archivo
-rm -r carpeta/           # Borrar carpeta completa
-code .                   # Abrir carpeta en VSCode
-```
-
----
-
-## Inicializar un repositorio Git
-
-```bash
-git init                                 # Crear repositorio
+git init                                  # Inicializar repositorio
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu@email.com"
 ```
 
 ---
 
-## Flujo básico de trabajo con Git
+## Flujo de trabajo básico
 
 ```bash
-git status                 # Ver estado actual
+git status                 # Ver estado
 git add archivo.txt        # Agregar archivo al staging
 git add .                  # Agregar todos los cambios
 git commit -m "Mensaje"    # Crear commit
-git log                    # Historial de commits
+git log                    # Ver historial
+git commit -am "Mensaje"   # Add + Commit archivos ya trackeados
 ```
 
 ---
@@ -68,9 +64,8 @@ git log                    # Historial de commits
 ## Modificar y deshacer cambios
 
 ```bash
-git rm --cached archivo.txt   # Quitar archivo del staging
-git diff                      # Ver diferencias
-git commit -am "Mensaje"      # Add + Commit en archivos ya trackeados
+git rm --cached archivo.txt  # Quitar del staging
+git diff                     # Ver diferencias
 ```
 
 ---
@@ -78,68 +73,88 @@ git commit -am "Mensaje"      # Add + Commit en archivos ya trackeados
 ## Volver a versiones anteriores
 
 ```bash
-git log                          # Ver historial
-git reset --soft <hash>         # Volver atrás, mantener cambios en staging
-git reset --mixed <hash>        # Volver atrás, mantener cambios sin staging
-git reset --hard <hash>         # Volver y borrar todo
+git reset --soft <hash>     # Mantiene cambios en staging
+git reset --mixed <hash>    # Mantiene cambios sin staging
+git reset --hard <hash>     # Borra todo
 
-# Recuperar un archivo específico
-git checkout <hash> archivo     # Recuperar archivo de commit anterior
-git checkout main archivo       # Recuperar desde rama principal
+# Recuperar archivo específico
+git checkout <hash> archivo
+git checkout main archivo
 ```
 
 ---
 
-## Ramas y flujo de trabajo
+## Trabajo con ramas
 
 ```bash
 git branch nombre-rama         # Crear rama
 git checkout nombre-rama       # Cambiar de rama
-git merge nombre-rama          # Fusionar con rama actual
-git branch -d nombre-rama      # Borrar rama local
+git switch nombre-rama         # Alternativa moderna
+git checkout -b nueva-rama     # Crear y cambiar
+git merge nombre-rama          # Fusionar con la actual
+git branch -d nombre-rama      # Borrar rama (si fue mergeada)
+git branch -D nombre-rama      # Forzar borrado
 ```
 
-> Convenciones comunes: `feature/`, `hotfix/`, `release/`
+### Convenciones de ramas
+
+| Tipo     | Descripción                  | Ejemplo              |
+| -------- | ---------------------------- | -------------------- |
+| feature/ | Nueva funcionalidad          | feature/login-form   |
+| fix/     | Corrección de error          | fix/navbar-overlap   |
+| hotfix/  | Urgente en producción        | hotfix/api-timeout   |
+| release/ | Preparación de versión final | release/v1.2.0       |
+| test/    | Pruebas o validaciones       | test/form-validation |
+
+### Buenas prácticas con ramas
+
+* Nombres descriptivos, minúscula y con guiones
+* Trabajar en ramas pequeñas y específicas
+* Evitar trabajar en `main`
+* Sincronizar frecuentemente (git pull)
+* Usar Pull Requests para revisión colaborativa
 
 ---
 
-## Trabajo con repositorios remotos
+## Repositorios remotos
 
 ```bash
-git clone url_repo             # Clonar repositorio
+git clone url_repo             # Clonar
 
-git remote add origin url      # Enlazar repo local con GitHub
+git remote add origin url      # Enlazar local con remoto
 git push -u origin main        # Subir por primera vez
 git push                       # Subir cambios
-git fetch                      # Obtener cambios remotos sin mezclar
-git merge                      # Unir cambios remotos con los locales
-git pull                       # Traer y unir en un paso (fetch + merge)
+git fetch                      # Traer sin fusionar
+git merge                      # Fusionar cambios remotos
+git pull                       # fetch + merge
 ```
+
+> Hacer `git pull` antes de `git push` para evitar conflictos.
 
 ---
 
 ## Resolución de conflictos
 
-1. Git marca las diferencias en conflicto con:
-
 ```text
 <<<<<<< HEAD
-código en rama actual
+código actual
 =======
-código en rama a fusionar
+código entrante
 >>>>>>> rama
 ```
 
-2. Editar y decidir qué conservar.
-3. Borrar las marcas (`<<<<<<<`, `=======`, `>>>>>>>`).
-4. Guardar y confirmar:
+### Pasos:
+
+1. Editar y elegir qué conservar
+2. Eliminar marcas
+3. Guardar y confirmar:
 
 ```bash
 git add archivo
 git commit -m "Conflicto resuelto"
 ```
 
-> Si querés cancelar el merge:
+> Cancelar merge:
 
 ```bash
 git merge --abort
@@ -147,45 +162,77 @@ git merge --abort
 
 ---
 
-## Configuración de llaves SSH
+## Llaves SSH
 
-Las llaves SSH permiten autenticación segura con GitHub sin ingresar contraseña.
+1. Generar llave:
 
 ```bash
 ssh-keygen -t rsa -b 4096 -C "tu@email.com"
+```
+
+2. Agregar al agente:
+
+```bash
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa
-cat ~/.ssh/id_rsa.pub         # Copiar y pegar en GitHub (Settings > SSH keys)
 ```
+
+3. Copiar clave pública:
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+4. Agregarla en GitHub: Settings > SSH keys
+
+> Permite clonar y hacer push sin ingresar contraseña.
+
+---
+
+## Buenas prácticas
+
+* Hacelo atómico: un cambio por commit
+* Mensajes claros y descriptivos
+* Evitá `git add .` sin revisar
+* Usá `.gitignore` desde el inicio
+* Hacé commits frecuentes
+* Siempre revisar con `git status` y `git log`
+
+---
+
+## Commits convencionales
+
+```
+tipo(alcance opcional): mensaje breve
+```
+
+### Tipos comunes:
+
+* feat: funcionalidad nueva
+* fix: corrección de bug
+* docs: documentación
+* style: formato (espacios, indentación)
+* refactor: mejora sin cambiar funcionalidad
+* test: tests agregados o corregidos
+* chore: tareas menores
+
+### Ejemplos:
+
+```bash
+git commit -m "feat(nav): agregar menú"
+git commit -m "fix(login): error en validación"
+git commit -m "docs: actualizar README"
+```
+
 ---
 
 ## Recursos útiles
 
-- [Git - Documentación oficial](https://git-scm.com/doc)
-- [Guía Markdown](https://www.markdownguide.org/basic-syntax/)
-- [GitHub SSH Keys](https://docs.github.com/es/authentication/connecting-to-github-with-ssh)
-- [Git Branching Model (GitFlow)](https://nvie.com/posts/a-successful-git-branching-model/)
-
----
-
-## Comandos adicionales útiles
-
-```bash
-history                     # Ver historial de comandos
-!número                     # Ejecutar comando del historial
-
-git log --oneline           # Ver resumen de commits
-git log --graph --decorate --all --oneline   # Visualizar ramas
-
-git shortlog                # Resumen por autor
-git log -p                  # Ver los parches (diffs)
-git log --stat              # Ver cambios por archivo
-git log --author="Nombre"
-git log --after="2023-01-01"
-git log --grep="Texto"
-```
-
----
-
-
+* [Git oficial](https://git-scm.com/doc)
+* [Guía Markdown](https://www.markdownguide.org/basic-syntax/)
+* [GitHub SSH Keys](https://docs.github.com/es/authentication/connecting-to-github-with-ssh)
+* [GitFlow](https://nvie.com/posts/a-successful-git-branching-model/)
+* [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/)
+* [Commitlint](https://commitlint.js.org/)
+* [Husky](https://github.com/typicode/husky)
 
