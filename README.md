@@ -193,7 +193,7 @@ cat ~/.ssh/id_rsa.pub
 
 ## Buenas prácticas
 
-* Hacelo atómico: un cambio por commit
+* Un cambio por commit
 * Mensajes claros y descriptivos
 * Evitá `git add .` sin revisar
 * Usá `.gitignore` desde el inicio
