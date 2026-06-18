@@ -40,17 +40,22 @@ git branch -D feature/experimento-fallido
 
 ---
 
-## 3. ¿Cómo fusionar el trabajo? (git merge)
+## 3. ¿Cómo fusionar el trabajo al finalizar el proyecto? (git merge)
 
-Cuando terminas de programar una característica en tu rama (por ejemplo, en `feature/login-form`) y quieres integrarla a la rama común (`dev`), debes seguir estos pasos exactamente en orden:
+Cuando el equipo ha trabajado en diferentes características dentro de la rama de desarrollo (`dev`) y el proyecto está listo, estable y probado, es momento de llevar todos esos cambios a la rama principal (`main`) para publicarlos.
 
-1. Guarda y haz commit de todos tus cambios en tu rama actual.
-2. Cámbiate a la rama que va a recibir los cambios (la rama "destino", en este caso `dev`):
+Para fusionar la rama `dev` dentro de `main`, debes seguir estos pasos en orden estricto:
+
+1. Asegúrate de haber guardado y confirmado todos los cambios pendientes en tu rama actual con `git add .` y `git commit`.
+
+2. Cámbiate a la rama que va a recibir los cambios (la rama destino, que en este caso es `main`):
    ```bash
-   git switch dev
+   git switch main
    ```
-3. Ejecuta la fusión trayendo la rama de la característica hacia ti:
+
+3. Trae los cambios de la rama de desarrollo hacia tu rama actual:
    ```bash
-   git merge feature/login-form
+   git merge dev
    ```
-4. Si no hay conflictos, Git unirá los códigos automáticamente. Ahora puedes borrar la rama de la característica si lo deseas.
+
+4. Si todo el código es compatible, Git unirá las dos líneas de tiempo de forma automática. Ahora la rama `main` estará completamente actualizada con el último trabajo del equipo.

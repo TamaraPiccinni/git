@@ -52,7 +52,7 @@ Usa este método si empezaste a programar en tu PC y recién ahora quieres crear
 3. Ve a GitHub, crea un repositorio vacío y copia su URL.
 4. Vincula tu carpeta local con ese servidor remoto (lo llamamos "origin"):
    ```bash
-   git remote add origin [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
+   git remote add origin https://github.com/tu-usuario/tu-repositorio.git
    ```
 5. Sube tus cambios y define la rama de destino por defecto (`-u`):
    ```bash
@@ -63,7 +63,7 @@ Usa este método si empezaste a programar en tu PC y recién ahora quieres crear
 Usa este método si el proyecto ya fue creado en GitHub (por ti o por tu equipo) y quieres descargarlo para empezar a trabajar.
 
 ```bash
-git clone [https://github.com/usuario/repositorio.git](https://github.com/usuario/repositorio.git)
+git clone  https://github.com/tu-usuario/tu-repositorio.git
 ```
 Al clonar, Git automáticamente descarga el código, crea la carpeta oculta `.git` e indexa el vínculo remoto ("origin"). No necesitas hacer `git init` ni `git remote add`.
 
