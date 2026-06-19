@@ -4,40 +4,42 @@ Bienvenido a este curso diseñado desde cero. Para evitar la saturación de info
 
 ## Mapa del Curso
 
-* [Manual de Configuración Inicial](docs/configuracion.md): Qué es la terminal, la diferencia entre Git local y GitHub remoto, cómo configurar tu entorno (HTTPS vs. SSH) y cómo solucionar errores de duplicados.
-* [El Historial y Viajes en el Tiempo](docs/historial.md): Cómo monitorear tus archivos y moverte entre versiones anteriores sin romper nada.
-* [Trabajo con Ramas y Estrategias](docs/ramas.md): Por qué nunca debes trabajar en la rama main, cómo usar la rama dev y cómo fusionar tus cambios de forma segura.
-* [Trabajo Colaborativo en Equipo](docs/colaborativo.md): El flujo correcto de pull y push, control de permisos en repositorios públicos y protección de ramas.
-* [Glosario para Principiantes](docs/glosario.md): Un diccionario con analogías sencillas para entender los términos técnicos de Git.
+* [Instalación según Sistema Operativo](docs/instalacion-os.md): Guía de instalación y particularidades de la terminal nativa para usuarios de Linux y macOS.
+* [Manual de Configuración Inicial](docs/configuracion.md): Qué es la terminal, la diferencia entre Git local y GitHub remoto, cómo configurar tu entorno y cómo solucionar errores de duplicados.
+* [Uso de Gitignore](docs/gitignore.md): Qué es y cómo evitar subir archivos basura, carpetas pesadas (como dependencias) o contraseñas al servidor.
+* [El Historial y Viajes en el Tiempo](docs/historial.md): Cómo monitorear tus archivos y moverte entre versiones anteriores de tu código de forma segura.
+* [Trabajo con Ramas y Estrategias](docs/ramas.md): Por qué evitar la rama main, cómo utilizar la rama dev y cómo fusionar tus cambios correctamente.
+* [Trabajo Colaborativo en Equipo](docs/colaborativo.md): El flujo correcto de pull y push, resolución de sincronización y control de permisos en repositorios públicos.
+* [Glosario para Principiantes](docs/glosario.md): Un diccionario con analogías sencillas para entender toda la terminología técnica de Git.
 
 ---
 
-## Guía de Inicio Rápido (Flujo Diario Diario)
+## Guía de Inicio Rápido (Flujo Diario)
 
-Si ya configuraste tu entorno y necesitas recordar el orden técnico que debes seguir en tu día a día, utiliza este esquema:
+Si ya instalaste y configuraste tu entorno y solo necesitas recordar el orden técnico de los comandos que debes seguir en tu día a día, utiliza este esquema:
 
 1. Ver el estado actual de tus archivos y en qué rama estás parado:
-   ```bash
+```bash
    git status
    ```
 
 2. Preparar los archivos modificados que vas a guardar:
-   ```bash
+```bash
    git add .
    ```
 
 3. Registrar la instantánea o "foto" de tu código en el historial local:
-   ```bash
+```bash
    git commit -m "feat(scope): mensaje descriptivo"
    ```
 
 4. Descargar las actualizaciones de tus compañeros antes de subir las tuyas:
-   ```bash
+```bash
    git pull origin nombre-de-tu-rama
    ```
 
 5. Subir tus cambios confirmados al servidor en la nube (GitHub):
-   ```bash
+```bash
    git push origin nombre-de-tu-rama
    ```
 

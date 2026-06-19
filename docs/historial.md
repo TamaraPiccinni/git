@@ -108,3 +108,12 @@ Código nuevo que viene de la rama que quieres fusionar (dev)
 2. Borra las marcas (`<<<<<<<`, `=======`, `>>>>>>>`).
 3. Habla con tu equipo o analiza cuál de las dos opciones de código debe conservarse (o si debes combinar ambas). Dejas solo el código definitivo.
 4. Guarda el archivo, prepáralo con `git add <archivo>` y finaliza el proceso registrando un commit normal mediante `git commit -m "Fix: resolución de conflictos"`.
+
+## 6. Corregir el último commit realizado (git commit --amend)
+
+Si acabas de realizar un commit local pero notas que cometiste una falta de ortografía en el mensaje, o te diste cuenta de que olvidaste incluir un archivo pequeño en el guardado, no es necesario recurrir a un reset. Puedes modificar la última foto tomada.
+
+* **Caso A: Solo quieres cambiar el texto del último mensaje**
+  Si el código está bien pero el mensaje tiene un error, ejecuta:
+  ```bash
+  git commit --amend -m "Texto corregido del mensaje"
