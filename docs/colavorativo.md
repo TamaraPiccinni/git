@@ -111,3 +111,32 @@ Si deseas trabajar conjuntamente con alumnos o colegas en el mismo repositorio, 
 Incluso en entornos compartidos donde has configurado colaboradores aprobados, existe la posibilidad de que un miembro del equipo incurra en una distracción y envíe código incompleto o roto directamente a la rama raíz de producción. Para mitigar este riesgo, puedes establecer reglas de restricción en la plataforma de GitHub ingresando en **Settings > Branches**:
 - Al activar una regla de protección sobre la rama `main`, puedes inhabilitar por completo los comandos de push directos sobre ella.
 - Esto obligará a todos los desarrolladores (incluido el administrador del proyecto) a crear obligatoriamente una rama auxiliar (como `dev`), subirla por separado al servidor y abrir una solicitud de Pull Request para que la fusión del código sea evaluada antes de ser integrada formalmente en la línea de tiempo estable del software.
+
+## 5. Cómo descargar todas las ramas y cambios del servidor (git fetch --all)
+
+Un error frecuente es pensar que `git pull` traerá y actualizará todas las ramas del repositorio en tu computadora. En realidad, `git pull` solo descarga e integra los cambios en la rama activa en la que te encuentres posicionado en ese instante.
+
+Si lo que necesitas es actualizar la base de datos de tu computadora con absolutamente todas las ramas, cambios y commits que existen en GitHub (sin fusionar nada ni alterar tus archivos actuales), debes usar el comando de consulta completa.
+
+### El comando de descarga masiva
+```bash
+git fetch --all
+```
+
+### ¿Qué sucede cuando ejecutas este comando?
+1. Git se conecta a GitHub y revisa si tus compañeros crearon ramas nuevas o subieron commits en ramas que tú no tenías registradas.
+2. Descarga el historial completo de todas esas ramas hacia tu repositorio local (la carpeta oculta `.git`).
+3. No toca ni modifica ninguno de los archivos de texto en los que estés trabajando en tu editor de código. Es una operación completamente segura que no genera conflictos.
+
+### Cómo ver y usar las ramas descargadas
+Una vez que ejecutaste el fetch, puedes listar todas las ramas (tanto las que ya tienes activas en tu computadora como las que están guardadas en el servidor remoto) con el siguiente comando:
+```bash
+git branch -a
+```
+Las ramas que están en la nube pero aún no has abierto en tu computadora aparecerán listadas de un color diferente y con el prefijo `remotes/origin/`.
+
+Si quieres empezar a trabajar en una de esas ramas nuevas que creó un compañero y que acabas de descargar con el fetch, simplemente ejecutas el comando de cambio convencional:
+```bash
+git switch nombre-de-la-rama-remota
+```
+Git detectará automáticamente que esa línea de tiempo ya fue descargada desde el servidor, creará una copia local idéntica en tu computadora y te posicionará en ella para que puedas comenzar a colaborar.
